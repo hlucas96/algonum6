@@ -3,8 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def test_period():
-
+def period_convergency():
         expected = 2 * np.pi
         nb_points = 15
         x = np.empty(nb_points)
@@ -23,6 +22,23 @@ def test_period():
         plt.plot(x, y)
         plt.show()
 
-test_period()
+period_convergency()
 
+
+def draw_freqencies():
+        g = 9.81
+        l = 2
+        f = np.sqrt(g / l) / (2 * np.pi)
+        h = 0.1
+        theta = np.arange(-np.pi + h, np.pi, h)
+        freq = frequencies(theta, g, l)
+
+        plt.title("Frequences d'oscillations d'un pendule simple")
+        plt.plot(theta, freq)
+        plt.plot([-np.pi, np.pi], [f, f], label="sqrt(g / L) / 2pi")
+        plt.xlabel("angle initial")
+        plt.legend()
+        plt.show()
+
+draw_freqencies()
 

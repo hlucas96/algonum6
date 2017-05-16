@@ -20,12 +20,10 @@ def step_rk4(y, t, h, f):
 def meth_n_step(y0, t0, N, h, f, meth):
 	Y = np.empty(N, dtype=object)
 	Y[0] = y0
-	t = t0
-	
+	t = t0	
 	for i in range(1, N):
 		Y[i] = meth(Y[i - 1], t, h, f)
-		t += h
-		
+		t += h	
 	return Y
 
 def meth_epsilon(y0,t0,tf,eps,f,meth):
