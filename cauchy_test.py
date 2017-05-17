@@ -59,7 +59,7 @@ def test_2d():
 
 	
 	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_euler))
-	plt.plot(X, y1, "b", label="euler")
+	plt.plot(X, y1, "b--", label="euler")
 	plt.plot(X, y2, "b")
 
 	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_pt_milieu))
@@ -67,7 +67,7 @@ def test_2d():
 	plt.plot(X, y2, "g")
 
 	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_heun))
-	plt.plot(X, y1, "c", label="heun")
+	plt.plot(X, y1, "c--", label="heun")
 	plt.plot(X, y2, "c")
 
 	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_rk4))
