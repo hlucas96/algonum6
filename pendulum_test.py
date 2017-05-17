@@ -1,4 +1,4 @@
-from pendulum_freq import *
+from pendulum import *
 import numpy as np
 import matplotlib.pyplot as plt
 

@@ -9,7 +9,7 @@ tf = 5
 y0 = 1
 f = lambda t, y: y / (1 + t*t)
 sol = lambda x: np.exp(np.arctan(x))
-graph_N_step(y0,t0,N,h,f,sol)
+graph_N_step(y0, t0, N, h, f, sol)
 
 
 
@@ -57,11 +57,11 @@ def test_2d():
 	plt.show()
 test_2d()
 
-def graph_epsilon(y0,t0,tf,eps,f,sol):
-    euler_eps = meth_epsilon(y0,t0,tf,eps,f,step_euler)
-    pt_milieu_eps = meth_epsilon(y0,t0,tf,eps,f,step_pt_milieu)
-    heun_eps = meth_epsilon(y0,t0,tf,eps,f,step_heun)
-    rk4_eps = meth_epsilon(y0,t0,tf,eps,f,step_rk4)
+def graph_epsilon(y0, t0, tf, eps, f, sol):
+    euler_eps = meth_epsilon(y0, t0, tf, eps, f, step_euler)
+    pt_milieu_eps = meth_epsilon(y0, t0, tf, eps, f, step_pt_milieu)
+    heun_eps = meth_epsilon(y0, t0, tf, eps, f, step_heun)
+    rk4_eps = meth_epsilon(y0, t0, tf, eps, f, step_rk4)
 
     x_e = np.linspace(t0, tf, len(euler_eps))
     x_p = np.linspace(t0, tf, len(pt_milieu_eps))
@@ -77,17 +77,17 @@ def graph_epsilon(y0,t0,tf,eps,f,sol):
     plt.show()
 
 y0 = np.array([1])
-f = lambda t,y : y[0]/(1+t**2)
+f = lambda t, y : y[0]/(1+t**2)
 t0 = 0
 tf = 5
 eps = 0.0000001
 sol = lambda t : np.exp(np.arctan(t))
-graph_epsilon(y0,t0,tf,eps,f,sol)
+graph_epsilon(y0, t0, tf, eps, f, sol)
 
 y0 = np.array([1, 0])
-f2 = lambda t,y : np.array([-y[1], y[0]])
+f2 = lambda t, y : np.array([-y[1], y[0]])
 t0 = 0
 tf = 5
 eps = 0.0000001
 sol2 = lambda t : np.array([cos(t), sin(t)])
-graph_epsilon(y0,t0,tf,eps,f,sol)
+graph_epsilon(y0, t0, tf, eps, f, sol)

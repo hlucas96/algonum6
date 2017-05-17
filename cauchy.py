@@ -19,24 +19,25 @@ def step_rk4(y, t, h, f):
 	return y + h*(k1 + 2*k2 + 2*k3 + k4)/6
 
 def meth_n_step(y0, t0, N, h, f, meth):
-	Y = [y0]
-	t = t0
+	Y = np.empty(N, dtype=object)
+	Y[0] = y0
+	t = t0	
 	for i in range(1, N):
-		Y.append(meth(Y[-1], t, h, f))
-		t += h
+		Y[i] = meth(Y[i - 1], t, h, f)
+		t += h	
 	return Y
 
 def meth_epsilon(y0,t0,tf,eps,f,meth):
     t = t0
     N = 2
     h = (tf-t0)/N
-    yN = meth_n_step(y0,t0,N,h,f,meth)
-    yN2 = meth_n_step(y0,t0,N/2,2*h,f,meth)
+    yN = meth_n_step(y0, t0, N, h, f, meth)
+    yN2 = meth_n_step(y0, t0, N//2, 2*h, f, meth)
     while(np.linalg.norm(yN[-1] - yN2[-1]) > eps):
         yN2 = list(yN)
         N *= 2
         h = (tf-t0)/N
-        yN = list(meth_n_step(y0,t0,N,h,f,meth))
+        yN = list(meth_n_step(y0, t0, N, h, f, meth))
     return yN
 
 
