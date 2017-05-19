@@ -38,24 +38,3 @@ def meth_epsilon(y0,t0,tf,eps,f,meth):
         h = (tf-t0)/N
         yN = meth_n_step(y0, t0, N, h, f, meth)
     return yN
-
-
-def graph_N_step(y0,t0,N,h,f,sol):
-	X = np.arange(t0, t0 + N*h, h)
-	Y = meth_n_step(y0, t0, N, h, f, step_euler)
-	plt.plot(X, Y, "b", label="Euler")
-
-	Y = meth_n_step(y0, t0, N, h, f, step_pt_milieu)
-	plt.plot(X, Y, "g", label="Point milieu")
-
-	Y = meth_n_step(y0, t0, N, h, f, step_heun)
-	plt.plot(X, Y, "c", label="Heun")
-
-	Y = meth_n_step(y0, t0, N, h, f, step_rk4)
-	plt.plot(X, Y, "r", label="Range-Kutta")
-	if (sol != 0):
-		Ry = sol(X)
-		plt.plot(X, Ry, "k--", label="Solution exacte")
-
-	plt.legend()
-	plt.show()
