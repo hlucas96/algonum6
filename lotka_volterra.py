@@ -1,4 +1,4 @@
-from cauchy import *
+from cauchy_test import *
 import numpy as np
 
 ##Malthus
@@ -27,13 +27,13 @@ h = 0.1
 graph_N_step(y0,t0,N,h,f,0)
 
 ##Lotka-Volterra
-a = 2/3
-b = 4/3
-c = 1
-d = 1
+a = 2.0
+b = 4.0
+c = 1.0
+d = 1.0
 f = lambda t,y : np.array([y[0]*(a-b*y[1]), y[1]*(c*y[0]-d)])
-y0 = np.array([20, 20])
-t0 = 0
+y0 = np.array([20.0, 20.0])
+t0 = 0.0
 N = 100
-h = 1
-graph_N_step(y0,t0,N,h,f,0)
+h = 1.0
+graph_2d(y0,t0,N,h,f,0)
