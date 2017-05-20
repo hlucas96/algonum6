@@ -64,3 +64,40 @@ def frequencies(Theta, g, l):
                 freq[i] = 1 / period(x, y)
 
         return freq
+
+
+def double_pendulum(theta1, theta2, g, l, N, h):
+        t0 = 0
+        gl = g / l
+
+        # [theta1, theta1', theta2, theta2']
+        Y0 = np.array([theta1, 0, theta2, 0])
+        def F(t, Y):
+                cos_dtheta = np.cos(Y[0] - Y[2])
+                sin_dtheta = np.sin(Y[0] - Y[2])
+                sin_theta1 = np.sin(Y[0])
+                sin_theta2 = np.sin(Y[2])
+                alpha = 1/(1 - (cos_dtheta * cos_dtheta) / 2)
+                print(alpha)
+
+                Y1 = alpha * (Y[1] * Y[1] * sin_dtheta * cos_dtheta / 2
+                              + gl * sin_theta2 * cos_dtheta
+                              - Y[3] * Y[3] * sin_dtheta / 2
+                              - gl * sin_theta1)
+                Y3 = alpha * (Y[3] * Y[3] * sin_dtheta * cos_dtheta / 2
+                              + gl * sin_theta1 * cos_dtheta
+                              + Y[1] * Y[1] * sin_dtheta
+                              - gl * sin_theta2)
+                return np.array([Y[1], Y1, Y[3], Y3])
+        
+        sol = meth_n_step(Y0, t0, N, h, F, step_rk4)
+
+        Theta1 = np.empty(N)
+        for i in range(N):
+                Theta1[i] = sol[i][0]
+        Theta2 = np.empty(N)
+        for i in range(N):
+                Theta2[i] = sol[i][2]
+        Time = np.arange(t0, t0 + N*h, h)
+
+        return Time, Theta1, Theta2

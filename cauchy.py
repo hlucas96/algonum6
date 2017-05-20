@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 def step_euler(y, t, h, f):
@@ -23,7 +22,6 @@ def meth_n_step(y0, t0, N, h, f, meth):
 	Y[0] = y0
 	for i in range(N):
 		Y[i+1] = meth(Y[i], t0 + i*h, h, f)
-
 	return Y
 
 def meth_epsilon(y0,t0,tf,eps,f,meth):

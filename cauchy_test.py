@@ -3,29 +3,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def graph_N_step(y0,t0,N,h,f,sol):
+def graph_N_step(y0, t0, N, h, f, sol):
 	X = np.arange(t0, t0 + (N+1)*h, h)
-	Y = meth_n_step(y0, t0, N, h, f, step_euler)
-	plt.plot(X, Y, "b", label="Euler")
-
-	Y = meth_n_step(y0, t0, N, h, f, step_pt_milieu)
-	plt.plot(X, Y, "g", label="Point milieu")
-
-	Y = meth_n_step(y0, t0, N, h, f, step_heun)
-	plt.plot(X, Y, "c", label="Heun")
-
-	Y = meth_n_step(y0, t0, N, h, f, step_rk4)
-	plt.plot(X, Y, "r", label="Range-Kutta")
 	if (sol != 0):
 		Ry = sol(X)
-		plt.plot(X, Ry, "k--", label="Solution exacte")
+		plt.plot(X, Ry, "k", label="Solution exacte")
+	
+	Y = meth_n_step(y0, t0, N, h, f, step_euler)
+	plt.plot(X, Y, "b--", label="Euler")
+
+	Y = meth_n_step(y0, t0, N, h, f, step_pt_milieu)
+	plt.plot(X, Y, "g--", label="Point milieu")
+
+	Y = meth_n_step(y0, t0, N, h, f, step_heun)
+	plt.plot(X, Y, "c--", label="Heun")
+
+	Y = meth_n_step(y0, t0, N, h, f, step_rk4)
+	plt.plot(X, Y, "r--", label="Range-Kutta")
 
 	plt.legend()
 	plt.show()
 
 def test_N_step():
 	N = 50
-	h = 0.1
+	h = 0.5
 	t0 = 0
 	tf = 5
 	y0 = 1
@@ -43,30 +44,30 @@ def extract2(Y):
 		y2[i] = Y[i][1]
 	return y1, y2
 
-def graph_2d(Y0,t0,N,h,f,sol):
+def graph_2d(Y0, t0, N, h, f, sol):
 	X = np.arange(t0, t0 + (N+1)*h, h)
-
-	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_euler))
-	plt.plot(X, y1, "b--", label="euler")
-	plt.plot(X, y2, "b")
-
-	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_pt_milieu))
-	plt.plot(X, y1, "g", label="point milieu")
-	plt.plot(X, y2, "g")
-
-	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_heun))
-	plt.plot(X, y1, "c--", label="heun")
-	plt.plot(X, y2, "c")
-
-	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_rk4))
-	plt.plot(X, y1, "r", label="range kutta")
-	plt.plot(X, y2, "r")
-
 	if (sol != 0):
 		sol_tab = [sol(t) for t in X]
 		R1, R2 = extract2(sol_tab)
-		plt.plot(X, R1, "k--", label="resultat")
-		plt.plot(X, R2, "k--")
+		plt.plot(X, R1, "k", label="resultat")
+		plt.plot(X, R2, "k")
+
+	
+	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_euler))
+	plt.plot(X, y1, "b--", label="euler")
+	plt.plot(X, y2, "b--")
+
+	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_pt_milieu))
+	plt.plot(X, y1, "g--", label="point milieu")
+	plt.plot(X, y2, "g--")
+
+	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_heun))
+	plt.plot(X, y1, "c--", label="heun")
+	plt.plot(X, y2, "c--")
+
+	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_rk4))
+	plt.plot(X, y1, "r--", label="range kutta")
+	plt.plot(X, y2, "r--")
 
 	plt.legend()
 	plt.show()
@@ -119,8 +120,8 @@ def graph_epsilon_2d(y0, t0, tf, eps, f, sol):
     plt.plot(x_h, heun_eps2)
     plt.plot(x_r, rk4_eps1, label="Runge-Kutta")
     plt.plot(x_r, rk4_eps2)
-    plt.plot(x_e, real1, "k--", label="Solution exacte")
-    plt.plot(x_e, real2, "k--")
+    plt.plot(x_e, real1, "k", label="Solution exacte")
+    plt.plot(x_e, real2, "k")
     plt.legend()
     plt.show()
 
@@ -138,12 +139,12 @@ def test_epsilon_2d():
 	f2 = lambda t, y : np.array([-y[1], y[0]])
 	t0 = 0
 	tf = 5
-	eps = 1e-3
+	eps = 1e-2
 	sol2 = lambda t : np.array([np.cos(t), np.sin(t)])
 	graph_epsilon_2d(y0, t0, tf, eps, f2, sol2)
 
 if __name__ == "__main__":
-	#test_N_step()
-	#test_2d()
-	#test_epsilon()
-	test_epsilon_2d()
+	test_N_step()
+	test_2d()
+	test_epsilon()
+	# test_epsilon_2d()

@@ -22,7 +22,7 @@ def period_convergency():
         plt.plot(x, y)
         plt.show()
 
-period_convergency()
+# period_convergency()
 
 
 def draw_freqencies():
@@ -40,5 +40,22 @@ def draw_freqencies():
         plt.legend()
         plt.show()
 
-draw_freqencies()
+# draw_freqencies()
 
+
+def draw_pendulum():
+        theta1 = 0
+        theta2 = 2
+        g = 9.81
+        l = 5
+        N = 200
+        h = 0.2
+
+        T, Theta1, Theta2 = double_pendulum(theta1, theta2, g, l, N, h)
+
+        plt.plot(T, Theta1, label="theta1")
+        plt.plot(T, Theta2, label="theta2")
+        plt.legend()
+        plt.show()
+
+draw_pendulum()
