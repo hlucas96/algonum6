@@ -43,19 +43,37 @@ def draw_freqencies():
 # draw_freqencies()
 
 
-def draw_pendulum():
-        theta1 = 0
-        theta2 = 2
+def pendulum_path(theta1, theta2):
         g = 9.81
         l = 5
         N = 200
-        h = 0.2
+        h = 0.1
 
-        T, Theta1, Theta2 = double_pendulum(theta1, theta2, g, l, N, h)
+        Theta1, Theta2 = double_pendulum(theta1, theta2, g, l, N, h)
 
-        plt.plot(T, Theta1, label="theta1")
-        plt.plot(T, Theta2, label="theta2")
+        x2 = np.empty(N)
+        for i in range(N): x2[i] = np.sin(Theta1[i]) + np.sin(Theta2[i])
+        y2 = np.empty(N)
+        for i in range(N): y2[i] = -np.cos(Theta1[i]) - np.cos(Theta2[i])
+
+        return x2, y2
+
+
+def draw_pendulum():
+
+        theta1 = 1
+        theta2 = 0
+        x2, y2 = pendulum_path(theta1, theta2)
+        plt.plot(x2, y2, label="theta1 =" + str(theta1) + ", theta2 = " + str(theta2))
+
+        theta1 = 1
+        theta2 = 0.01
+        x2, y2 = pendulum_path(theta1, theta2)
+        plt.plot(x2, y2, label="theta1 =" + str(theta1) + ", theta2 = " + str(theta2))
+
+        
         plt.legend()
         plt.show()
 
 draw_pendulum()
+

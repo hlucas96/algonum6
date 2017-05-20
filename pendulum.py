@@ -78,7 +78,6 @@ def double_pendulum(theta1, theta2, g, l, N, h):
                 sin_theta1 = np.sin(Y[0])
                 sin_theta2 = np.sin(Y[2])
                 alpha = 1/(1 - (cos_dtheta * cos_dtheta) / 2)
-                print(alpha)
 
                 Y1 = alpha * (Y[1] * Y[1] * sin_dtheta * cos_dtheta / 2
                               + gl * sin_theta2 * cos_dtheta
@@ -93,11 +92,8 @@ def double_pendulum(theta1, theta2, g, l, N, h):
         sol = meth_n_step(Y0, t0, N, h, F, step_rk4)
 
         Theta1 = np.empty(N)
-        for i in range(N):
-                Theta1[i] = sol[i][0]
+        for i in range(N): Theta1[i] = sol[i][0]
         Theta2 = np.empty(N)
-        for i in range(N):
-                Theta2[i] = sol[i][2]
-        Time = np.arange(t0, t0 + N*h, h)
+        for i in range(N): Theta2[i] = sol[i][2]
 
-        return Time, Theta1, Theta2
+        return Theta1, Theta2
