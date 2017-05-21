@@ -66,34 +66,37 @@ def frequencies(Theta, g, l):
         return freq
 
 
-def double_pendulum(theta1, theta2, g, l, N, h):
-        t0 = 0
+# Y = [th1, th1', th2, th2']
+def step_double_pendulum(Y, g, l):
         gl = g / l
-
-        # [theta1, theta1', theta2, theta2']
-        Y0 = np.array([theta1, 0, theta2, 0])
-        def F(t, Y):
-                cos_dtheta = np.cos(Y[0] - Y[2])
-                sin_dtheta = np.sin(Y[0] - Y[2])
-                sin_theta1 = np.sin(Y[0])
-                sin_theta2 = np.sin(Y[2])
-                alpha = 1/(1 - (cos_dtheta * cos_dtheta) / 2)
-
-                Y1 = alpha * (Y[1] * Y[1] * sin_dtheta * cos_dtheta / 2
-                              + gl * sin_theta2 * cos_dtheta
-                              - Y[3] * Y[3] * sin_dtheta / 2
-                              - gl * sin_theta1)
-                Y3 = alpha * (Y[3] * Y[3] * sin_dtheta * cos_dtheta / 2
-                              + gl * sin_theta1 * cos_dtheta
-                              + Y[1] * Y[1] * sin_dtheta
-                              - gl * sin_theta2)
-                return np.array([Y[1], Y1, Y[3], Y3])
+        cos_dth = np.cos(Y[0] - Y[2])
+        sin_dth = np.sin(Y[0] - Y[2])
+        sin_th1 = np.sin(Y[0])
+        sin_th2 = np.sin(Y[2])
+        alpha = 1 / (1 - ((cos_dth * cos_dth) / 2))
         
-        sol = meth_n_step(Y0, t0, N, h, F, step_rk4)
+        Y1 = alpha * (Y[1] * Y[1] * sin_dth * cos_dth / 2
+                      + gl * sin_th2 * cos_dth
+                      - Y[3] * Y[3] * sin_dth / 2
+                      - gl * sin_th1)
+        Y3 = alpha * (Y[3] * Y[3] * sin_dth * cos_dth / 2
+                      + gl * sin_th1 * cos_dth
+                      + Y[1] * Y[1] * sin_dth
+                      - gl * sin_th2)
 
-        Theta1 = np.empty(N)
-        for i in range(N): Theta1[i] = sol[i][0]
-        Theta2 = np.empty(N)
-        for i in range(N): Theta2[i] = sol[i][2]
+        return np.array([Y[1], Y1, Y[3], Y3]) # [th1', th1'', th2', th2'']
 
-        return Theta1, Theta2
+
+def pendulum_path(theta1, theta2, g, l, N, h):
+        Y0 = np.array([theta1, 0, theta2, 0])
+        F = lambda t, Y: step_double_pendulum(Y, g, l)
+        sol = meth_n_step(Y0, 0, N, h, F, step_rk4)
+
+        n = len(sol)
+        x2 = np.empty(n)
+        for i in range(n): x2[i] = np.sin(sol[i][0]) + np.sin(sol[i][2])
+        y2 = np.empty(n)
+        for i in range(n): y2[i] = -np.cos(sol[i][0]) - np.cos(sol[i][2])
+
+        return x2, y2
+

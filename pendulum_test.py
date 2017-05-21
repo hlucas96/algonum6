@@ -1,6 +1,7 @@
 from pendulum import *
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 
 def period_convergency():
@@ -43,37 +44,45 @@ def draw_freqencies():
 # draw_freqencies()
 
 
-def pendulum_path(theta1, theta2):
+def draw_pendulum():
+        N = 300
+        h = 0.1
         g = 9.81
         l = 5
-        N = 200
-        h = 0.1
 
-        Theta1, Theta2 = double_pendulum(theta1, theta2, g, l, N, h)
-
-        x2 = np.empty(N)
-        for i in range(N): x2[i] = np.sin(Theta1[i]) + np.sin(Theta2[i])
-        y2 = np.empty(N)
-        for i in range(N): y2[i] = -np.cos(Theta1[i]) - np.cos(Theta2[i])
-
-        return x2, y2
-
-
-def draw_pendulum():
-
-        theta1 = 1
-        theta2 = 0
-        x2, y2 = pendulum_path(theta1, theta2)
-        plt.plot(x2, y2, label="theta1 =" + str(theta1) + ", theta2 = " + str(theta2))
-
-        theta1 = 1
-        theta2 = 0.01
-        x2, y2 = pendulum_path(theta1, theta2)
-        plt.plot(x2, y2, label="theta1 =" + str(theta1) + ", theta2 = " + str(theta2))
-
+        plt.subplot(1, 3, 1)
+        th1 = 2
+        th2 = 1.5
+        plt.title("th1: " + str(th1) + "rad , th2: " + str(th2) + "rad")
+        x, y = pendulum_path(th1, th2, g, l, N, h)
+        plt.axis("equal")
+        plt.plot(x, y)
+        linex = [0,  np.sin(th1),  np.sin(th1) + np.sin(th2)]
+        liney = [0, -np.cos(th1), -np.cos(th1) - np.cos(th2)]
+        plt.plot(linex, liney, "o-")
         
-        plt.legend()
+        plt.subplot(1, 3, 2)
+        th1 = th1 + 0.02
+        th2 = th2
+        plt.title("th1: " + str(th1) + "rad , th2: " + str(th2) + "rad")
+        x, y = pendulum_path(th1, th2, g, l, N, h)
+        plt.axis("equal")
+        plt.plot(x, y)
+        linex = [0,  np.sin(th1),  np.sin(th1) + np.sin(th2)]
+        liney = [0, -np.cos(th1), -np.cos(th1) - np.cos(th2)]
+        plt.plot(linex, liney, "o-")
+
+        plt.subplot(1, 3, 3)
+        th1 = th1 + 0.02
+        th2 = th2
+        plt.title("th1: " + str(th1) + "rad , th2: " + str(th2) + "rad")
+        x, y = pendulum_path(th1, th2, g, l, N, h)
+        plt.axis("equal")
+        plt.plot(x, y)
+        linex = [0,  np.sin(th1),  np.sin(th1) + np.sin(th2)]
+        liney = [0, -np.cos(th1), -np.cos(th1) - np.cos(th2)]
+        plt.plot(linex, liney, "o-")
+
         plt.show()
 
 draw_pendulum()
-

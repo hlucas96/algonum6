@@ -24,7 +24,7 @@ def meth_n_step(y0, t0, N, h, f, meth):
 		Y[i+1] = meth(Y[i], t0 + i*h, h, f)
 	return Y
 
-def meth_epsilon(y0,t0,tf,eps,f,meth):
+def meth_epsilon(y0, t0, tf, eps, f, meth):
     t = t0
     N = 5
     h = (tf-t0)/N
