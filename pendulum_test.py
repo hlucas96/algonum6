@@ -50,6 +50,8 @@ def draw_pendulum():
         g = 9.81
         l = 5
 
+        # TODO, fix limit of frame
+
         plt.subplot(1, 3, 1)
         th1 = 2
         th2 = 1.5
@@ -85,4 +87,23 @@ def draw_pendulum():
 
         plt.show()
 
-draw_pendulum()
+# draw_pendulum()
+
+
+def draw_flip_over(N):
+        g = 9.81
+        l = 5
+        angle = lambda i: -3 + (i * 6 / N)
+        
+        M = np.empty((N, N))
+        for i in range(N):
+                for j in range(N):
+                        M[i][j] = flip_over_ratio(angle(i), angle(j), g, l)
+
+        fig = plt.figure(5)
+        ax = plt.subplot(111)
+        im = ax.imshow(M, cmap=plt.get_cmap('hot'))
+        fig.colorbar(im)
+        plt.show()
+
+draw_flip_over(300)

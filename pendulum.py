@@ -87,8 +87,8 @@ def step_double_pendulum(Y, g, l):
         return np.array([Y[1], Y1, Y[3], Y3]) # [th1', th1'', th2', th2'']
 
 
-def pendulum_path(theta1, theta2, g, l, N, h):
-        Y0 = np.array([theta1, 0, theta2, 0])
+def pendulum_path(th1, th2, g, l, N, h):
+        Y0 = np.array([th1, 0, th2, 0])
         F = lambda t, Y: step_double_pendulum(Y, g, l)
         sol = meth_n_step(Y0, 0, N, h, F, step_rk4)
 
@@ -100,3 +100,21 @@ def pendulum_path(theta1, theta2, g, l, N, h):
 
         return x2, y2
 
+
+def flip_over_ratio(th1, th2, g, l):
+        N = 100
+        h = 0.5
+        Y0 = np.array([th1, 0, th2, 0])
+        F = lambda t, Y: step_double_pendulum(Y, g, l)
+        sol = meth_n_step(Y0, 0, N, h, F, step_rk4)
+
+        pi = 3.14
+        # theta2 = sol[:][2]
+        for i in range(1, N):
+                if (sol[i - 1][2] <= pi):
+                        if (sol[i][2] >= pi):
+                                return i / N
+                else:
+                        if (sol[i][2] <= pi):
+                                return i / N
+        return 1
