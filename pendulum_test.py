@@ -22,8 +22,6 @@ def period_convergency():
         plt.plot(x, y)
         plt.show()
 
-# period_convergency()
-
 
 def draw_freqencies():
         g = 9.81
@@ -39,8 +37,6 @@ def draw_freqencies():
         plt.xlabel("angle initial")
         plt.legend()
         plt.show()
-
-# draw_freqencies()
 
 
 def double_pendulum(th1, th2, g, l, m, time):
@@ -67,11 +63,9 @@ def double_pendulum(th1, th2, g, l, m, time):
         ani = animation.FuncAnimation(fig, animate, frames=N, interval=30, blit=True, init_func=init, repeat=True)
         plt.show()
 
-double_pendulum(1.5, 1.5, 9.81, 1, 1, 50)
-
 
 def draw_pendulum():
-        N = 300
+        N = 200
         h = 0.1
         m = 1
         g = 9.81
@@ -81,7 +75,7 @@ def draw_pendulum():
         #plt.axes(xlim=(-2, 2), ylim=(-2, 2))
         th1 = 2
         th2 = 1.5
-        plt.title("th1: " + str(th1) + "rad , th2: " + str(th2) + "rad")
+        plt.title("th1: " + str(th1) + "rad, th2: " + str(th2) + "rad")
         x, y = pendulum_path(th1, th2, g, l, m, N, h)
         plt.axis("equal")
         plt.plot(x, y)
@@ -91,9 +85,9 @@ def draw_pendulum():
         
         plt.subplot(1, 3, 2)
         #plt.axes(xlim=(-2, 2), ylim=(-2, 2))
-        th1 = th1 + 0.02
-        th2 = th2
-        plt.title("th1: " + str(th1) + "rad , th2: " + str(th2) + "rad")
+        th1 = th1
+        th2 = th2 + 0.2
+        plt.title("th1: " + str(th1) + "rad, th2: " + str(th2) + "rad")
         x, y = pendulum_path(th1, th2, g, l, m, N, h)
         plt.axis("equal")
         plt.plot(x, y)
@@ -103,9 +97,9 @@ def draw_pendulum():
 
         plt.subplot(1, 3, 3)
         #plt.axes(xlim=(-2, 2), ylim=(-2, 2))
-        th1 = th1 + 0.02
+        th1 = th1 + 0.2
         th2 = th2
-        plt.title("th1: " + str(th1) + "rad , th2: " + str(th2) + "rad")
+        plt.title("th1: " + str(th1) + "rad, th2: " + str(th2) + "rad")
         x, y = pendulum_path(th1, th2, g, l, m, N, h)
         plt.axis("equal")
         plt.plot(x, y)
@@ -114,8 +108,6 @@ def draw_pendulum():
         plt.plot(linex, liney, "o-")
 
         plt.show()
-
-# draw_pendulum()
 
 
 def draw_flip_over(N):
@@ -135,4 +127,12 @@ def draw_flip_over(N):
         fig.colorbar(im)
         plt.show()
 
-# draw_flip_over(20)
+
+        
+if __name__ == "__main__":
+        
+        period_convergency()
+        draw_freqencies()
+        double_pendulum(3, -3, 9.81, 1, 1, 15)
+        draw_pendulum()
+        draw_flip_over(20)

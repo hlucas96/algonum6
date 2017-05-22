@@ -73,11 +73,13 @@ def step_double_pendulum(Y, g, l, m):
         th22 = Y[3]
         alpha = 1 / (l * (3 * m - m * cos(2 * th1 - 2 * th2)))
         
-        th111 = alpha * (-3 * g * m * sin(th1) - g * m * sin(th1 - 2 * th2)
-        - 2 * sin(th1 - th2) * m * (th22 * th22 * l + th11 * th11 * cos(th1 - th2)))
+        th111 = alpha * ((-3 * g * m * sin(th1))
+                         - (g * m * sin(th1 - 2 * th2))
+                         - (2 * sin(th1 - th2) * m * (th22 * th22 * l + th11 * th11 * l * cos(th1 - th2))))
 
-        th222 = alpha * (2 * sin(th1 - th2) * (th11 * th11 * l * 2 * m + 2 * g * m * cos(th1)
-        + th22 * th22 * l * m * cos(th1 - th2)))
+        th222 = alpha * (2 * sin(th1 - th2) * ((th11 * th11 * l * 2 * m)
+                                               + (2 * g * m * cos(th1))
+                                               + (th22 * th22 * l * m * cos(th1 - th2))))
 
         return array([th11, th111, th22, th222]) # [th1', th1'', th2', th2'']
 
@@ -121,7 +123,7 @@ def pendulum_all_info(th1, th2, g, l, m, N, h):
 
 
 def flip_over_ratio(th1, th2, g, l, m):
-        N = 200
+        N = 100
         h = 0.5
         Y0 = array([th1, 0, th2, 0])
         F = lambda t, Y: step_double_pendulum(Y, g, l, m)
