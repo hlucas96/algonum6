@@ -27,7 +27,6 @@ def display_tangent_field(T, h) :
         U.append(R[i][0])
         V.append(R[i][1])
     plt.figure()
-    plt.title("Tangent Field")
     Q = plt.quiver(X, Y, U, V, units='xy', width=0.3)
     plt.show()
 
