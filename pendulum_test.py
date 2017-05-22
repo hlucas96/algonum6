@@ -43,27 +43,31 @@ def draw_freqencies():
 # draw_freqencies()
 
 
-# fig = plt.figure()
+def double_pendulum(th1, th2, g, l, m, time):
 
-# ax = plt.axes(xlim=(0, 2), ylim=(0, 100))
+        h = 0.1
+        N = int(time / h)
+        t1, t2, x1, y1, x2, y2 = pendulum_all_info(th1, th2, g, l, m, N, h)
 
-# N = 4
-# lines = [plt.plot([], [])[0] for _ in range(N)]
+        fig, ax = plt.subplots()
+        ax.set_xlim([-2 * l - h, 2 * l + h])
+        ax.set_ylim([-2 * l - h, 2 * l + h])
+        ax.grid()
 
-# def init():    
-#     for line in lines:
-#         line.set_data([], [])
-#     return lines
+        line, = ax.plot([], [], 'o-', lw=2)
 
-# def animate(i):
-#     for j,line in enumerate(lines):
-#         line.set_data([0, 2], [10 * j,i])
-#     return lines
+        def init():
+                line.set_data([], [])
+                return line,
 
-# anim = animation.FuncAnimation(fig, animate, init_func=init,
-#                                frames=100, interval=20, blit=True)
+        def animate(i):
+                line.set_data([0, x1[i], x2[i]], [0, y1[i], y2[i]])
+                return line,
 
-# plt.show()
+        ani = animation.FuncAnimation(fig, animate, frames=N, interval=30, blit=True, init_func=init, repeat=True)
+        plt.show()
+
+double_pendulum(1.5, 1.5, 9.81, 1, 1, 50)
 
 
 def draw_pendulum():
@@ -131,4 +135,4 @@ def draw_flip_over(N):
         fig.colorbar(im)
         plt.show()
 
-draw_flip_over(20)
+# draw_flip_over(20)
