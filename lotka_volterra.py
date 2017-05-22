@@ -13,8 +13,7 @@ t0 = 2017
 N = 1000
 h = 0.1
 f = lambda t,y : (b-d)*y[0]
-
-#graph_N_step(y0,t0,N,h,f,0)
+graph_N_step(y0,t0,N,h,f,0)
 
 
 #Verhulst
@@ -25,7 +24,7 @@ y0 = np.array([60])
 t0 = 2017
 N = 1000
 h = 0.1
-#graph_N_step(y0,t0,N,h,f,0)
+graph_N_step(y0,t0,N,h,f,0)
 
 ##Lotka-Volterra
 a = 2.0/3.0
@@ -37,7 +36,7 @@ y0 = np.array([1.0, 1.0])
 t0 = 0.0
 N = 30000
 h = 1e-3
-#graph_2d_pred(y0,t0,N,h,f)
+graph_2d_pred(y0,t0,N,h,f)
 
 def periode(y0, t0, N, h, f, meth):
     Y = np.empty(N+1, dtype=object)
