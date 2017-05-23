@@ -130,8 +130,8 @@ def draw_flip_over(N):
         
 if __name__ == "__main__":
         
-        period_convergency()
-        draw_freqencies()
-        double_pendulum(3, -3, 9.81, 1, 15)
-        draw_pendulum()
-        draw_flip_over(20)
+        #period_convergency()
+        #draw_freqencies()
+        #double_pendulum(3, -3, 9.81, 1, 15)
+        #draw_pendulum()
+        draw_flip_over(30)

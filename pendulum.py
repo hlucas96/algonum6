@@ -130,8 +130,8 @@ def flip_over_ratio(th1, th2, g, l):
         F = lambda t, Y: step_double_pendulum(Y, g, l)
         sol = meth_n_step(Y0, 0, N, h, F, step_rk4)
 
-        for i in range(N):
+        for i in range(1, N):
             if (3 * cos(sol[i][0]) + cos(sol[i][2]) > 2):
-                return i / N
+                return N / i
             
         return 1
