@@ -66,27 +66,28 @@ def frequencies(Theta, g, l):
 
 
 # Y = [th1, th1', th2, th2']
-def step_double_pendulum(Y, g, l, m):
+def step_double_pendulum(Y, g, l):
         th1 = Y[0]
         th11 = Y[1]
         th2 = Y[2]
         th22 = Y[3]
-        alpha = 1 / (l * (3 * m - m * cos(2 * th1 - 2 * th2)))
+        alpha = 1 / (l * (3 - cos(2 * th1 - 2 * th2)))
         
-        th111 = alpha * ((-3 * g * m * sin(th1))
-                         - (g * m * sin(th1 - 2 * th2))
-                         - (2 * sin(th1 - th2) * m * (th22 * th22 * l + th11 * th11 * l * cos(th1 - th2))))
+        th111 = alpha * ((-3 * g * sin(th1))
+                         - (g * sin(th1 - 2 * th2))
+                         - (2 * sin(th1 - th2) * (th22 * th22 * l
+                                                  + th11 * th11 * l * cos(th1 - th2))))
 
-        th222 = alpha * (2 * sin(th1 - th2) * ((th11 * th11 * l * 2 * m)
-                                               + (2 * g * m * cos(th1))
-                                               + (th22 * th22 * l * m * cos(th1 - th2))))
+        th222 = alpha * (2 * sin(th1 - th2) * ((th11 * th11 * l * 2)
+                                               + (2 * g * cos(th1))
+                                               + (th22 * th22 * l * cos(th1 - th2))))
 
         return array([th11, th111, th22, th222]) # [th1', th1'', th2', th2'']
 
 
-def pendulum_path(th1, th2, g, l, m, N, h):
+def pendulum_path(th1, th2, g, l, N, h):
         Y0 = array([th1, 0, th2, 0])
-        F = lambda t, Y: step_double_pendulum(Y, g, l, m)
+        F = lambda t, Y: step_double_pendulum(Y, g, l)
         sol = meth_n_step(Y0, 0, N, h, F, step_rk4)
 
         x2 = empty(N)
@@ -98,9 +99,9 @@ def pendulum_path(th1, th2, g, l, m, N, h):
         return x2, y2
 
 
-def pendulum_all_info(th1, th2, g, l, m, N, h):
+def pendulum_all_info(th1, th2, g, l, N, h):
         Y0 = array([th1, 0, th2, 0])
-        F = lambda t, Y: step_double_pendulum(Y, g, l, m)
+        F = lambda t, Y: step_double_pendulum(Y, g, l)
         sol = meth_n_step(Y0, 0, N, h, F, step_rk4)
 
         t1 = empty(N)
@@ -122,11 +123,11 @@ def pendulum_all_info(th1, th2, g, l, m, N, h):
         return t1, t2, x1, y1, x2, y2
 
 
-def flip_over_ratio(th1, th2, g, l, m):
+def flip_over_ratio(th1, th2, g, l):
         N = 100
         h = 0.5
         Y0 = array([th1, 0, th2, 0])
-        F = lambda t, Y: step_double_pendulum(Y, g, l, m)
+        F = lambda t, Y: step_double_pendulum(Y, g, l)
         sol = meth_n_step(Y0, 0, N, h, F, step_rk4)
 
         for i in range(N):

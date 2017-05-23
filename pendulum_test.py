@@ -3,6 +3,7 @@ from matplotlib import animation
 from matplotlib import pyplot as plt
 import numpy as np
 
+
 def period_convergency():
         expected = 2 * np.pi
         nb_points = 15
@@ -39,11 +40,11 @@ def draw_freqencies():
         plt.show()
 
 
-def double_pendulum(th1, th2, g, l, m, time):
+def double_pendulum(th1, th2, g, l, time):
 
         h = 0.1
         N = int(time / h)
-        t1, t2, x1, y1, x2, y2 = pendulum_all_info(th1, th2, g, l, m, N, h)
+        t1, t2, x1, y1, x2, y2 = pendulum_all_info(th1, th2, g, l, N, h)
 
         fig, ax = plt.subplots()
         ax.set_xlim([-2 * l - h, 2 * l + h])
@@ -67,7 +68,6 @@ def double_pendulum(th1, th2, g, l, m, time):
 def draw_pendulum():
         N = 200
         h = 0.1
-        m = 1
         g = 9.81
         l = 5
 
@@ -76,7 +76,7 @@ def draw_pendulum():
         th1 = 2
         th2 = 1.5
         plt.title("th1: " + str(th1) + "rad, th2: " + str(th2) + "rad")
-        x, y = pendulum_path(th1, th2, g, l, m, N, h)
+        x, y = pendulum_path(th1, th2, g, l, N, h)
         plt.axis("equal")
         plt.plot(x, y)
         linex = [0,  np.sin(th1),  np.sin(th1) + np.sin(th2)]
@@ -88,7 +88,7 @@ def draw_pendulum():
         th1 = th1
         th2 = th2 + 0.2
         plt.title("th1: " + str(th1) + "rad, th2: " + str(th2) + "rad")
-        x, y = pendulum_path(th1, th2, g, l, m, N, h)
+        x, y = pendulum_path(th1, th2, g, l, N, h)
         plt.axis("equal")
         plt.plot(x, y)
         linex = [0,  np.sin(th1),  np.sin(th1) + np.sin(th2)]
@@ -100,7 +100,7 @@ def draw_pendulum():
         th1 = th1 + 0.2
         th2 = th2
         plt.title("th1: " + str(th1) + "rad, th2: " + str(th2) + "rad")
-        x, y = pendulum_path(th1, th2, g, l, m, N, h)
+        x, y = pendulum_path(th1, th2, g, l, N, h)
         plt.axis("equal")
         plt.plot(x, y)
         linex = [0,  np.sin(th1),  np.sin(th1) + np.sin(th2)]
@@ -113,13 +113,12 @@ def draw_pendulum():
 def draw_flip_over(N):
         g = 9.81
         l = 5
-        m = 1
         angle = lambda i: -3 + (i * 6 / N)
         
         M = np.empty((N, N))
         for i in range(N):
                 for j in range(N):
-                        M[i][j] = flip_over_ratio(angle(j), angle(i), g, l, m)
+                        M[i][j] = flip_over_ratio(angle(j), angle(i), g, l)
 
         fig = plt.figure(5)
         ax = plt.subplot(111)
@@ -133,6 +132,6 @@ if __name__ == "__main__":
         
         period_convergency()
         draw_freqencies()
-        double_pendulum(3, -3, 9.81, 1, 1, 15)
+        double_pendulum(3, -3, 9.81, 1, 15)
         draw_pendulum()
         draw_flip_over(20)
