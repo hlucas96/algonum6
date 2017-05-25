@@ -116,9 +116,11 @@ def draw_flip_over(N):
         
         M = np.empty((N, N))
         for i in range(N):
-                for j in range(N):
+                for j in range(i + 1):
                         M[i][j] = flip_over_ratio(angle(j), angle(i), g, l)
-
+                        # let's use the symmetry of this matrix
+                        M[N - i - 1][N - j - 1] = M[i][j]
+                        
         fig = plt.figure(5)
         ax = plt.subplot(111)
         im = ax.imshow(M, cmap=plt.get_cmap("cubehelix"))
@@ -136,5 +138,5 @@ if __name__ == "__main__":
         double_pendulum(3, -3, 9.81, 1, 30)
         draw_pendulum()
         
-        print("result in 10sec for a 20 x 20 image")
+        print("result in 7sec for a 20x20 image")
         draw_flip_over(20)
