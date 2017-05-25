@@ -36,13 +36,13 @@ def draw_freqencies():
         plt.plot(theta, freq)
         plt.plot([-np.pi, np.pi], [f, f], label="sqrt(g / L) / 2pi")
         plt.xlabel("angle initial")
+        plt.ylabel("Hz")
         plt.legend()
         plt.show()
 
 
 def double_pendulum(th1, th2, g, l, time):
-
-        h = 0.1
+        h = 0.05
         N = int(time / h)
         t1, t2, x1, y1, x2, y2 = pendulum_all_info(th1, th2, g, l, N, h)
 
@@ -61,22 +61,21 @@ def double_pendulum(th1, th2, g, l, time):
                 line.set_data([0, x1[i], x2[i]], [0, y1[i], y2[i]])
                 return line,
 
-        ani = animation.FuncAnimation(fig, animate, frames=N, interval=30, blit=True, init_func=init, repeat=True)
+        ani = animation.FuncAnimation(fig, animate, frames=N, interval=1000*h, blit=True, init_func=init, repeat=True)
         plt.show()
 
 
 def draw_pendulum():
-        N = 200
-        h = 0.1
+        N = 300
         g = 9.81
         l = 5
 
         plt.subplot(1, 3, 1)
         #plt.axes(xlim=(-2, 2), ylim=(-2, 2))
         th1 = 2
-        th2 = 1.5
-        plt.title("th1: " + str(th1) + "rad, th2: " + str(th2) + "rad")
-        x, y = pendulum_path(th1, th2, g, l, N, h)
+        th2 = 2
+        plt.title("th1: " + str(th1) + " rad\n th2: " + str(th2) + "rad")
+        x, y = pendulum_path(th1, th2, g, l, N)
         plt.axis("equal")
         plt.plot(x, y)
         linex = [0,  np.sin(th1),  np.sin(th1) + np.sin(th2)]
@@ -86,9 +85,9 @@ def draw_pendulum():
         plt.subplot(1, 3, 2)
         #plt.axes(xlim=(-2, 2), ylim=(-2, 2))
         th1 = th1
-        th2 = th2 + 0.2
-        plt.title("th1: " + str(th1) + "rad, th2: " + str(th2) + "rad")
-        x, y = pendulum_path(th1, th2, g, l, N, h)
+        th2 = th2 + 0.1
+        plt.title("th1: " + str(th1) + " rad\n th2: " + str(th2) + "rad")
+        x, y = pendulum_path(th1, th2, g, l, N)
         plt.axis("equal")
         plt.plot(x, y)
         linex = [0,  np.sin(th1),  np.sin(th1) + np.sin(th2)]
@@ -97,10 +96,10 @@ def draw_pendulum():
 
         plt.subplot(1, 3, 3)
         #plt.axes(xlim=(-2, 2), ylim=(-2, 2))
-        th1 = th1 + 0.2
-        th2 = th2
-        plt.title("th1: " + str(th1) + "rad, th2: " + str(th2) + "rad")
-        x, y = pendulum_path(th1, th2, g, l, N, h)
+        th1 = th1
+        th2 = th2 + 0.1
+        plt.title("th1: " + str(th1) + " rad \n th2: " + str(th2) + "rad")
+        x, y = pendulum_path(th1, th2, g, l, N)
         plt.axis("equal")
         plt.plot(x, y)
         linex = [0,  np.sin(th1),  np.sin(th1) + np.sin(th2)]
@@ -122,16 +121,20 @@ def draw_flip_over(N):
 
         fig = plt.figure(5)
         ax = plt.subplot(111)
-        im = ax.imshow(M, cmap=plt.get_cmap("YlGn"))
+        im = ax.imshow(M, cmap=plt.get_cmap("cubehelix"))
         fig.colorbar(im)
+
+        # fig.savefig("figure.png")
         plt.show()
 
 
         
 if __name__ == "__main__":
         
-        #period_convergency()
-        #draw_freqencies()
-        #double_pendulum(3, -3, 9.81, 1, 15)
-        #draw_pendulum()
-        draw_flip_over(30)
+        period_convergency()
+        draw_freqencies()
+        double_pendulum(3, -3, 9.81, 1, 30)
+        draw_pendulum()
+        
+        print("result in 10sec for a 20 x 20 image")
+        draw_flip_over(20)
