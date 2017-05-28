@@ -8,7 +8,7 @@ def graph_N_step(y0, t0, N, h, f, sol):
 	if (sol != 0):
 		Ry = sol(X)
 		plt.plot(X, Ry, "k", label="Solution exacte")
-	
+
 	Y = meth_n_step(y0, t0, N, h, f, step_euler)
 	plt.plot(X, Y, "b--", label="Euler")
 
@@ -52,7 +52,7 @@ def graph_2d(Y0, t0, N, h, f, sol):
 		plt.plot(X, R1, "k", label="resultat")
 		plt.plot(X, R2, "k")
 
-	
+
 	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_euler))
 	plt.plot(X, y1, "b--", label="euler")
 	plt.plot(X, y2, "b--")
@@ -71,6 +71,17 @@ def graph_2d(Y0, t0, N, h, f, sol):
 
 	plt.legend()
 	plt.show()
+
+def graph_2d_pred(Y0, t0, N, h, f):
+	X = np.arange(t0, t0 + (N+1)*h, h)
+
+	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_euler))
+	plt.plot(X, y1, label="Proies")
+	plt.plot(X, y2, label="Predateurs")
+
+	plt.legend()
+	plt.show()
+
 
 def test_2d():
 	N = 50
@@ -139,7 +150,7 @@ def test_epsilon_2d():
 	f2 = lambda t, y : np.array([-y[1], y[0]])
 	t0 = 0
 	tf = 5
-	eps = 1e-2
+	eps = 1e-1
 	sol2 = lambda t : np.array([np.cos(t), np.sin(t)])
 	graph_epsilon_2d(y0, t0, tf, eps, f2, sol2)
 
@@ -147,4 +158,4 @@ if __name__ == "__main__":
 	test_N_step()
 	test_2d()
 	test_epsilon()
-	# test_epsilon_2d()
+	test_epsilon_2d()

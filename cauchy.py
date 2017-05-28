@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def step_euler(y, t, h, f):
 	return y + h * f(t,y)
 

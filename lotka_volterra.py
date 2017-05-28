@@ -10,7 +10,7 @@ d = 8.7/1000
 y0 = np.array([64862000])
 
 t0 = 2017
-N = 1000
+N = 10000
 h = 0.1
 f = lambda t,y : (b-d)*y[0]
 graph_N_step(y0,t0,N,h,f,0)
@@ -45,7 +45,7 @@ def periode(y0, t0, N, h, f, meth):
         Y[i+1] = meth(Y[i], t0 + i*h, h, f)
         if (Y[i][0] > y0[0] and Y[i+1][0] <= y0[0]):
             return t0 + (i+1)*h
-print("Période des fonctions : ",periode(y0, t0, N, h, f, step_rk4))
+print("Periode des fonctions : ",periode(y0, t0, N, h, f, step_rk4))
 
 
 def graph_P_N(y0, t0, N, h, f, meth, nb_courbes, pas):
@@ -54,7 +54,7 @@ def graph_P_N(y0, t0, N, h, f, meth, nb_courbes, pas):
         plt.plot(x, y, "k")
         y0[0] += pas
     plt.xlabel("Proies")
-    plt.ylabel("Prédateurs")
+    plt.ylabel("Predateurs")
     plt.show()
 y0 = np.array([1.0, 0.5])
 N = 10000
