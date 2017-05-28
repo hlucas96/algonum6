@@ -19,7 +19,7 @@ def graph_N_step(y0, t0, N, h, f, sol):
 	plt.plot(X, Y, "c--", label="Heun")
 
 	Y = meth_n_step(y0, t0, N, h, f, step_rk4)
-	plt.plot(X, Y, "r--", label="Range-Kutta")
+	plt.plot(X, Y, "r--", label="Runge-Kutta")
 
 	plt.legend()
 	plt.show()
@@ -49,24 +49,24 @@ def graph_2d(Y0, t0, N, h, f, sol):
 	if (sol != 0):
 		sol_tab = [sol(t) for t in X]
 		R1, R2 = extract2(sol_tab)
-		plt.plot(X, R1, "k", label="resultat")
+		plt.plot(X, R1, "k", label="Solution exacte")
 		plt.plot(X, R2, "k")
 
 
 	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_euler))
-	plt.plot(X, y1, "b--", label="euler")
+	plt.plot(X, y1, "b--", label="Euler")
 	plt.plot(X, y2, "b--")
 
 	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_pt_milieu))
-	plt.plot(X, y1, "g--", label="point milieu")
+	plt.plot(X, y1, "g--", label="Point milieu")
 	plt.plot(X, y2, "g--")
 
 	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_heun))
-	plt.plot(X, y1, "c--", label="heun")
+	plt.plot(X, y1, "c--", label="Heun")
 	plt.plot(X, y2, "c--")
 
 	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_rk4))
-	plt.plot(X, y1, "r--", label="range kutta")
+	plt.plot(X, y1, "r--", label="Runge Kutta")
 	plt.plot(X, y2, "r--")
 
 	plt.legend()
