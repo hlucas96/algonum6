@@ -75,7 +75,7 @@ def graph_2d(Y0, t0, N, h, f, sol):
 def graph_2d_pred(Y0, t0, N, h, f):
 	X = np.arange(t0, t0 + (N+1)*h, h)
 
-	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_euler))
+	y1, y2 = extract2(meth_n_step(Y0, t0, N, h, f, step_rk4))
 	plt.plot(X, y1, label="Proies")
 	plt.plot(X, y2, label="Predateurs")
 
